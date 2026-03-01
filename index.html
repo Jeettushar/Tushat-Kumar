@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ツシヤル・クマル | Digital Marketing Executive</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        jp: ['Noto Sans JP', 'sans-serif'],
+                    },
+                    colors: {
+                        tokyo: {
+                            dark: '#0a0a0f',
+                            neon: '#ff006e',
+                            cyan: '#00f5ff',
+                            purple: '#b829dd',
+                            gold: '#ffd700',
+                            red: '#e63946'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #050508;
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+        }
+        .neon-text { text-shadow: 0 0 10px currentColor; }
+        .text-gradient {
+            background: linear-gradient(135deg, #ff006e, #00f5ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        .card:hover {
+            border-color: #ff006e;
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.2);
+        }
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .sakura {
+            position: fixed;
+            background: linear-gradient(to bottom, #ffb7c5, #ffc0cb);
+            border-radius: 100% 0 100% 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="canvas-container"></div>
+    <div id="sakura-container"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 px-4 py-3 bg-black/60 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-white relative overflow-hidden">
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-red-600 rounded-full"></div>
+                </div>
+                <span class="font-jp font-bold text-lg">ツシヤル</span>
+            </div>
+            <div class="hidden md:flex gap-6 text-xs font-bold tracking-widest">
+                <a href="#home" class="hover:text-tokyo-neon transition-colors">ホーム</a>
+                <a href="#about" class="hover:text-tokyo-cyan transition-colors">自己紹介</a>
+                <a href="#skills" class="hover:text-tokyo-purple transition-colors">スキル</a>
+                <a href="#experience" class="hover:text-tokyo-gold transition-colors">経歴</a>
+                <a href="#contact" class="hover:text-tokyo-neon transition-colors">連絡先</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-12 px-4 min-h-screen flex items-center">
+        <div class="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-8 items-center">
+            
+            <!-- Left Content -->
+            <div class="relative z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tokyo-red/20 border border-tokyo-red/30 text-tokyo-red text-xs font-bold mb-4">
+                    <i data-lucide="map-pin" class="w-3 h-3"></i>
+                    Ready to Relocate to Japan / 日本への移住準備完了
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-display font-black mb-2 leading-none">
+                    <span class="block text-white">TUSHAR</span>
+                    <span class="block text-gradient">KUMAR</span>
+                </h1>
+                
+                <div class="font-jp text-tokyo-cyan text-lg mb-4 tracking-widest">
+                    デジタルマーケティングエグゼクティブ
+                </div>
+                
+                <p class="text-gray-400 text-sm mb-6 leading-relaxed max-w-lg">
+                    Results-driven Digital Marketing Executive with hands-on experience in SEO, Google Ads, Meta Ads, email marketing, lead generation, and CRM management. Strong background in B2B data research and performance marketing.
+                </p>
+
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="px-3 py-1 bg-tokyo-neon/20 border border-tokyo-neon/40 rounded text-xs text-tokyo-neon font-bold">SEO</span>
+                    <span class="px-3 py-1 bg-tokyo-cyan/20 border border-tokyo-cyan/40 rounded text-xs text-tokyo-cyan font-bold">Google Ads</span>
+                    <span class="px-3 py-1 bg-tokyo-purple/20 border border-tokyo-purple/40 rounded text-xs text-tokyo-purple font-bold">Meta Ads</span>
+                    <span class="px-3 py-1 bg-tokyo-gold/20 border border-tokyo-gold/40 rounded text-xs text-tokyo-gold font-bold">B2B Lead Gen</span>
+                    <span class="px-3 py-1 bg-white/10 border border-white/20 rounded text-xs text-white font-bold">JLPT N5</span>
+                </div>
+
+                <div class="flex gap-3">
+                    <a href="#contact" class="px-6 py-2 bg-tokyo-neon text-black font-bold text-sm rounded hover:bg-white transition-colors flex items-center gap-2">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        Hire Me / 採用する
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="px-6 py-2 border border-white/20 rounded text-sm hover:border-tokyo-cyan hover:text-tokyo-cyan transition-colors">
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Visual -->
+            <div class="relative flex justify-center items-center">
+                <div class="relative w-72 h-72">
+                    <div class="absolute inset-0 rounded-full border-2 border-tokyo-neon/30 animate-pulse"></div>
+                    <div class="absolute inset-4 rounded-full border border-tokyo-cyan/20"></div>
+                    <div class="absolute inset-0 flex items-center justify-center flex-col">
+                        <div class="text-7xl font-jp font-black text-white/10">日本</div>
+                        <div class="text-tokyo-gold font-bold text-lg mt-2">JLPT N5</div>
+                        <div class="text-xs text-gray-500">Learning Japanese</div>
+                    </div>
+                    <div class="absolute inset-0 animate-spin" style="animation-duration: 20s;">
+                        <div class="absolute top-0 left-1/2 w-3 h-3 bg-tokyo-neon rounded-full shadow-[0_0_10px_#ff006e]"></div>
+                    </div>
+                </div>
+                <div class="absolute right-0 top-0 h-full hidden md:block vertical-text font-jp text-white/20 text-sm tracking-widest">
+                    デジタルマーケティング • 日本への情熱 • 成長
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Japan Banner -->
+    <section class="py-3 bg-gradient-to-r from-tokyo-red/20 to-transparent border-y border-tokyo-red/20">
+        <div class="max-w-6xl mx-auto px-4 flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <i data-lucide="plane" class="w-4 h-4 text-tokyo-red"></i>
+                <span class="text-xs font-bold text-white">Open to opportunities in Japan / 日本での機会を探しています</span>
+            </div>
+            <div class="flex gap-4 text-[10px] text-gray-400">
+                <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3 text-tokyo-cyan"></i> Visa Ready</span>
+                <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3 text-tokyo-cyan"></i> Remote OK</span>
+                <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3 text-tokyo-cyan"></i> Willing to Relocate</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-4">
+                <!-- Main About -->
+                <div class="md:col-span-2 card p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-tokyo-neon/20 flex items-center justify-center text-tokyo-neon">
+                            <i data-lucide="user" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Professional Summary / 自己紹介</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">
+                        Results-driven Digital Marketing Executive with hands-on experience in SEO, Google Ads, Meta Ads, email marketing, lead generation, and CRM management. Strong background in B2B data research, performance marketing, and analytics-driven campaign optimization. Proven ability to support sales growth through qualified lead generation, audience targeting, and marketing automation.
+                    </p>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">
+                        Currently enhancing skills through certifications and continuous practice. Learning Japanese (JLPT N5) for global career growth and actively seeking opportunities in Japan.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-2 py-1 bg-white/5 rounded text-gray-400">Kolkata, West Bengal, India</span>
+                        <span class="text-xs px-2 py-1 bg-tokyo-red/20 rounded text-tokyo-red border border-tokyo-red/30">🇯🇵 Target: Japan</span>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="space-y-3">
+                    <div class="card p-4 text-center">
+                        <div class="text-3xl font-bold text-tokyo-cyan">3+</div>
+                        <div class="text-xs text-gray-500">Years Experience</div>
+                    </div>
+                    <div class="card p-4 text-center">
+                        <div class="text-3xl font-bold text-tokyo-neon">B2B</div>
+                        <div class="text-xs text-gray-500">Focus Area</div>
+                    </div>
+                    <div class="card p-4 text-center border-tokyo-gold/30">
+                        <div class="text-3xl font-bold text-tokyo-gold">N5</div>
+                        <div class="text-xs text-gray-500">Japanese Level</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-12 px-4 bg-black/20">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl font-bold mb-6 text-center">Core Skills / <span class="text-gradient">スキル</span></h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div class="card p-4 text-center hover:border-tokyo-cyan">
+                    <i data-lucide="search" class="w-6 h-6 mx-auto mb-2 text-tokyo-cyan"></i>
+                    <div class="text-sm font-bold">SEO</div>
+                    <div class="text-[10px] text-gray-500">On-Page & Technical</div>
+                </div>
+                <div class="card p-4 text-center hover:border-tokyo-neon">
+                    <i data-lucide="target" class="w-6 h-6 mx-auto mb-2 text-tokyo-neon"></i>
+                    <div class="text-sm font-bold">Google Ads</div>
+                    <div class="text-[10px] text-gray-500">Search, Display, YouTube</div>
+                </div>
+                <div class="card p-4 text-center hover:border-tokyo-purple">
+                    <i data-lucide="instagram" class="w-6 h-6 mx-auto mb-2 text-tokyo-purple"></i>
+                    <div class="text-sm font-bold">Meta Ads</div>
+                    <div class="text-[10px] text-gray-500">Facebook & Instagram</div>
+                </div>
+                <div class="card p-4 text-center hover:border-tokyo-gold">
+                    <i data-lucide="users" class="w-6 h-6 mx-auto mb-2 text-tokyo-gold"></i>
+                    <div class="text-sm font-bold">Lead Generation</div>
+                    <div class="text-[10px] text-gray-500">B2B & B2C</div>
+                </div>
+                <div class="card p-4 text-center hover:border-tokyo-cyan">
+                    <i data-lucide="mail" class="w-6 h-6 mx-auto mb-2 text-tokyo-cyan"></i>
+                    <div class="text-sm font-bold">Email Marketing</div>
+                    <div class="text-[10px] text-gray-500">Automation & Outreach</div>
+                </div>
+                <div class="card p-4 text-center hover:border-tokyo-neon">
+                    <i data-lucide="database" class="w-6 h-6 mx-auto mb-2 text-tokyo-neon"></i>
+                    <div class="text-sm font-bold">CRM Management</div>
+                    <div class="text-[10px] text-gray-500">Data Cleaning</div>
+                </div>
+                <div class="card p-4 text-center hover:border-tokyo-purple">
+                    <i data-lucide="bar-chart-2" class="w-6 h-6 mx-auto mb-2 text-tokyo-purple"></i>
+                    <div class="text-sm font-bold">Analytics</div>
+                    <div class="text-[10px] text-gray-500">Google Analytics</div>
+                </div>
+                <div class="card p-4 text-center hover:border-tokyo-gold border-tokyo-gold/30">
+                    <i data-lucide="pen-tool" class="w-6 h-6 mx-auto mb-2 text-tokyo-gold"></i>
+                    <div class="text-sm font-bold">Content Writing</div>
+                    <div class="text-[10px] text-gray-500">Copywriting</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section - FULL DETAILS -->
+    <section id="experience" class="py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl font-bold mb-6 text-center">Experience / <span class="text-gradient">経歴</span></h2>
+            
+            <div class="space-y-4">
+                
+                <!-- Job 1: Nexval -->
+                <div class="card p-6">
+                    <div class="flex flex-wrap justify-between items-start mb-3 gap-2">
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Data Researcher (Sales Department)</h3>
+                            <p class="text-tokyo-cyan font-bold">Nexval – Kolkata, India</p>
+                        </div>
+                        <span class="px-3 py-1 bg-tokyo-cyan/20 text-tokyo-cyan text-xs rounded-full font-bold">January 2023 – Present</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-cyan shrink-0 mt-0.5"></i>
+                            <span>Conduct B2B data research and lead generation to support sales and marketing initiatives</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-cyan shrink-0 mt-0.5"></i>
+                            <span>Built and maintained accurate CRM databases, ensuring clean and actionable marketing data</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-cyan shrink-0 mt-0.5"></i>
+                            <span>Supported email marketing and outbound sales campaigns for client acquisition</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-cyan shrink-0 mt-0.5"></i>
+                            <span>Used LinkedIn Sales Navigator to identify decision-makers and create targeted prospect lists</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-cyan shrink-0 mt-0.5"></i>
+                            <span>Created company deep-dive presentations to support sales strategy and account targeting</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-cyan shrink-0 mt-0.5"></i>
+                            <span>Assisted marketing teams with content writing and campaign execution</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-cyan shrink-0 mt-0.5"></i>
+                            <span>Collaborated cross-functionally with sales and marketing teams to improve lead quality</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Job 2: Freelance -->
+                <div class="card p-6">
+                    <div class="flex flex-wrap justify-between items-start mb-3 gap-2">
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Lead Generation & Digital Marketing Executive</h3>
+                            <p class="text-tokyo-neon font-bold">Freelance</p>
+                        </div>
+                        <span class="px-3 py-1 bg-tokyo-neon/20 text-tokyo-neon text-xs rounded-full font-bold">August 2023 – August 2024</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-neon shrink-0 mt-0.5"></i>
+                            <span>Executed email marketing campaigns for outreach and lead nurturing</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-neon shrink-0 mt-0.5"></i>
+                            <span>Conducted data collection, market research, and audience segmentation</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-neon shrink-0 mt-0.5"></i>
+                            <span>Designed marketing creatives, flyers, and promotional content</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-neon shrink-0 mt-0.5"></i>
+                            <span>Managed CRM workflows and customer databases</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-neon shrink-0 mt-0.5"></i>
+                            <span>Delivered content writing, copywriting, and presentation design for business clients</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-neon shrink-0 mt-0.5"></i>
+                            <span>Supported social media management to improve brand visibility and engagement</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Job 3: BYJU'S -->
+                <div class="card p-6">
+                    <div class="flex flex-wrap justify-between items-start mb-3 gap-2">
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Pre-Sales Associate</h3>
+                            <p class="text-tokyo-purple font-bold">BYJU'S – Kolkata, India</p>
+                        </div>
+                        <span class="px-3 py-1 bg-tokyo-purple/20 text-tokyo-purple text-xs rounded-full font-bold">March 2022 – May 2022</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-purple shrink-0 mt-0.5"></i>
+                            <span>Qualified inbound leads and handled customer communication</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-purple shrink-0 mt-0.5"></i>
+                            <span>Supported sales funnel operations and CRM updates</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-tokyo-purple shrink-0 mt-0.5"></i>
+                            <span>Coordinated between sales and marketing teams to improve conversion flow</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Job 4: Tech Mahindra -->
+                <div class="card p-6 opacity-80">
+                    <div class="flex flex-wrap justify-between items-start mb-3 gap-2">
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Customer Support Specialist</h3>
+                            <p class="text-gray-400 font-bold">Tech Mahindra – Kolkata, India</p>
+                        </div>
+                        <span class="px-3 py-1 bg-gray-700 text-gray-300 text-xs rounded-full font-bold">August 2021 – February 2022</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400 shrink-0 mt-0.5"></i>
+                            <span>Handled customer communication via calls, email, and chat</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400 shrink-0 mt-0.5"></i>
+                            <span>Resolved customer issues and maintained accurate documentation</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400 shrink-0 mt-0.5"></i>
+                            <span>Collaborated with internal teams to ensure timely issue resolution</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="py-12 px-4 bg-black/20">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl font-bold mb-6 text-center">Education & Certifications / <span class="text-gradient">学歴と資格</span></h2>
+            
+            <div class="grid md:grid-cols-2 gap-4">
+                <!-- Education -->
+                <div class="card p-6">
+                    <h3 class="font-bold mb-4 flex items-center gap-2 text-tokyo-cyan">
+                        <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                        Education / 学歴
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="border-l-2 border-tokyo-cyan/30 pl-4">
+                            <h4 class="font-bold text-sm">Advance Diploma in Computer Application – Computer Science</h4>
+                            <p class="text-tokyo-cyan text-xs font-bold">DITM</p>
+                            <p class="text-gray-500 text-xs">June 2018 – July 2019</p>
+                        </div>
+                        <div class="border-l-2 border-tokyo-purple/30 pl-4">
+                            <h4 class="font-bold text-sm">Bachelor of Arts (BA) – Psychology</h4>
+                            <p class="text-tokyo-purple text-xs font-bold">Veer Kunwar Singh University, Arrah</p>
+                            <p class="text-gray-500 text-xs">March 2017 – April 2019</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certifications -->
+                <div class="card p-6">
+                    <h3 class="font-bold mb-4 flex items-center gap-2 text-tokyo-gold">
+                        <i data-lucide="award" class="w-5 h-5"></i>
+                        Certifications / 資格
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 p-3 bg-white/5 rounded-lg">
+                            <div class="w-10 h-10 rounded-lg bg-tokyo-neon/20 flex items-center justify-center text-tokyo-neon">
+                                <i data-lucide="badge-check" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm">Digital Marketing Certification</h4>
+                                <p class="text-xs text-gray-500">Professional Accreditation</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-tokyo-gold/10 rounded-lg border border-tokyo-gold/20">
+                            <div class="w-10 h-10 rounded-lg bg-tokyo-gold/20 flex items-center justify-center text-2xl">
+                                🇯🇵
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-tokyo-gold">Japanese Language (JLPT N5)</h4>
+                                <p class="text-xs text-gray-500">Currently Learning / 学習中</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="font-bold mb-3 mt-6 flex items-center gap-2 text-white">
+                        <i data-lucide="languages" class="w-5 h-5"></i>
+                        Languages / 言語
+                    </h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>Hindi</span>
+                            <span class="text-tokyo-cyan">Native/Bilingual</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>English</span>
+                            <span class="text-tokyo-cyan">Professional Working</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Japanese (日本語)</span>
+                            <span class="text-tokyo-gold">JLPT N5 (Learning)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="card p-8 text-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-tokyo-neon/10 via-tokyo-cyan/10 to-tokyo-purple/10"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-3xl font-bold mb-2">一緒に働きましょう</h2>
+                    <p class="text-lg text-gray-400 mb-1">Let's Work Together</p>
+                    <p class="text-xs text-tokyo-cyan mb-6">Open to opportunities in Japan • 日本での機会を探しています</p>
+                    
+                    <div class="flex flex-col sm:flex-row justify-center gap-3 mb-6">
+                        <a href="mailto:ktushar965@gmail.com" class="px-6 py-3 bg-tokyo-neon text-black font-bold rounded-lg hover:scale-105 transition-transform flex items-center justify-center gap-2">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                            ktushar965@gmail.com
+                        </a>
+                        <a href="tel:+916289572192" class="px-6 py-3 border border-white/20 rounded-lg hover:border-tokyo-cyan hover:text-tokyo-cyan transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="phone" class="w-4 h-4"></i>
+                            +91 62895 72192
+                        </a>
+                    </div>
+
+                    <div class="flex justify-center gap-4">
+                        <a href="https://linkedin.com" target="_blank" class="p-3 bg-white/5 rounded-lg hover:bg-tokyo-cyan/20 hover:text-tokyo-cyan transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="p-3 bg-white/5 rounded-lg hover:bg-tokyo-neon/20 hover:text-tokyo-neon transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-6 pt-6 border-t border-white/10">
+                        <p class="text-xs text-gray-500">
+                            Kolkata, West Bengal, India • Ready to relocate to Japan / 日本への移住準備完了
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-6 text-center text-xs text-gray-600 border-t border-white/5">
+        <p class="font-jp mb-1">ツシヤル・クマル • 2024</p>
+        <p>Built with passion for Japan • 日本への情熱を込めて</p>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Sakura Effect
+        const createSakura = () => {
+            const petal = document.createElement('div');
+            petal.className = 'sakura';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.width = Math.random() * 15 + 5 + 'px';
+            petal.style.height = petal.style.width;
+            petal.style.animation = `fall ${Math.random() * 5 + 5}s linear`;
+            petal.style.opacity = Math.random() * 0.6 + 0.2;
+            document.getElementById('sakura-container').appendChild(petal);
+            setTimeout(() => petal.remove(), 10000);
+        };
+        setInterval(createSakura, 400);
+
+        // Add fall animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to { transform: translateY(100vh) rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Three.js Background
+        const initThree = () => {
+            const container = document.getElementById('canvas-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            const gridHelper = new THREE.GridHelper(50, 50, 0xff006e, 0x1a1a2e);
+            gridHelper.position.y = -5;
+            scene.add(gridHelper);
+
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 400;
+            const posArray = new Float32Array(particlesCount * 3);
+            
+            for(let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 20;
+            }
+            
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const material = new THREE.PointsMaterial({
+                size: 0.02,
+                color: 0x00f5ff,
+                transparent: true,
+                opacity: 0.8,
+            });
+            
+            const particlesMesh = new THREE.Points(particlesGeometry, material);
+            scene.add(particlesMesh);
+
+            camera.position.z = 5;
+            camera.position.y = 2;
+
+            const animate = () => {
+                requestAnimationFrame(animate);
+                particlesMesh.rotation.y += 0.001;
+                particlesMesh.rotation.x += 0.0005;
+                renderer.render(scene, camera);
+            };
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        };
+
+        initThree();
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        gsap.utils.toArray('.card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: { trigger: card, start: "top 85%" },
+                y: 30,
+                opacity: 0,
+                duration: 0.5,
+                delay: i * 0.1
+            });
+        });
+    </script>
+</body>
+</html>
